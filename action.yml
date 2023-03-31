@@ -8,7 +8,7 @@ inputs:
     description: '从管理面板获取您的飞网认证密钥。'
     required: true
   version:
-    description: '飞网版本使用.'
+    description: '飞网版本使用。'
     required: true
     default: '1.0.8'
   args:
@@ -44,7 +44,7 @@ runs:
           curl "$URL" -o gmzta.tgz
           tar -C /tmp -xzf gmzta.tgz
           rm gmzta.tgz
-          sudo mv /tmp/gmzta" "/tmp/gmztad" /usr/bin
+          sudo mv "/tmp/gmzta" "/tmp/gmztad" /usr/bin
       - name: 运行飞网
         shell: bash
         env:
