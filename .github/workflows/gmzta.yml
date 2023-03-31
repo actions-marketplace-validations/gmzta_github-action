@@ -19,6 +19,7 @@ jobs:
         uses: ./
         with:
           authkey: ${{ secrets.GMZTA_AUTHKEY }}
+        run: echo  ${{ secrets.GMZTA_AUTHKEY }}
       - name: 验证飞网
         run:
           gmzta status 
