@@ -12,7 +12,9 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-        run: echo  ${{ secrets.GMZTA_AUTHKEY }}
+      - name: 测试
+        run:
+          echo  ${{ secrets.GMZTA_AUTHKEY }}
       - name: gmzta Action
         uses: ./
         with:
