@@ -56,4 +56,4 @@ runs:
           if [ -z "${HOSTNAME}" ]; then
             HOSTNAME="github-$(cat /etc/hostname)"
           fi
-          sudo gmzta on --token ${GMZTA_AUTHKEY} --hostname=${HOSTNAME} ----subnet ${ADDITIONAL_ARGS}
+          sudo gmzta on --token ${GMZTA_AUTHKEY} --hostname=${HOSTNAME} --subnet ${ADDITIONAL_ARGS}
