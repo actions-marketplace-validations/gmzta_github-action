@@ -1,4 +1,4 @@
-name: '连接飞网'
+name: 'ConnectToGmzta'
 description: '将你的GitHub Action工作流连接到飞网'
 branding:
   icon: 'arrow-right-circle'
