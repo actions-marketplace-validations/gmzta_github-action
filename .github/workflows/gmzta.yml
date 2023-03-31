@@ -1,5 +1,4 @@
 name: gmzta
-
 on:
   push:
     branches:
@@ -7,18 +6,17 @@ on:
   pull_request:
     branches:
       - '*'
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v2
+        run: echo  ${{ secrets.GMZTA_AUTHKEY }}
       - name: gmzta Action
         uses: ./
         with:
           authkey: ${{ secrets.GMZTA_AUTHKEY }}
-          run: echo  ${{ secrets.GMZTA_AUTHKEY }}
       - name: 验证飞网
         run:
           gmzta status 
