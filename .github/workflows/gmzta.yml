@@ -18,4 +18,4 @@ jobs:
           authkey: ${{ secrets.GMZTA_AUTHKEY }}
       - name: 验证飞网
         run:
-          gmzta status 
+          gmzta info 
