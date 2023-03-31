@@ -1,4 +1,4 @@
-name: gmzta
+name: 飞网
 on:
   push:
     branches:
@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: 取出代码
         uses: actions/checkout@v2
-      - name: gmzta Action
+      - name: 飞网自动化
         uses: ./
         with:
           authkey: ${{ secrets.GMZTA_AUTHKEY }}
