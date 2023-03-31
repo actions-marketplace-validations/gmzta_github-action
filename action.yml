@@ -44,8 +44,7 @@ runs:
           curl "$URL" -o gmzta.tgz
           tar -C /tmp -xzf gmzta.tgz
           rm gmzta.tgz
-          TSPATH=/tmp/gmzta_${VERSION}
-          sudo mv "${TSPATH}/gmzta" "${TSPATH}/gmztad" /usr/bin
+          sudo mv /tmp/gmzta" "/tmp/gmztad" /usr/bin
       - name: 运行飞网
         shell: bash
         env:
