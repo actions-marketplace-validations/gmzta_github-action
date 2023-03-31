@@ -1,0 +1,60 @@
+name: '连接飞网'
+description: '将你的GitHub Action工作流连接到飞网'
+branding:
+  icon: 'arrow-right-circle'
+  color: 'gray-dark'
+inputs:
+  authkey:
+    description: '从管理面板获取您的飞网认证密钥。'
+    required: true
+  version:
+    description: '飞网版本使用.'
+    required: true
+    default: '1.0.8'
+  args:
+    description: '可选的附加参数 `gmzta on`'
+    required: false
+    default: ''
+  hostname:
+    description: '固定的主机名使用。'
+    required: false
+    default: ''
+runs:
+    using: 'composite'
+    steps:
+      - name: 检查运行环境
+        if: ${{ runner.os != 'Linux' }}
+        shell: bash
+        run: |
+          echo "::error 仅支持Linux系统"
+          exit 1
+      - name: 检查AUTH密钥是否为空
+        if: ${{ inputs.authkey == '' }}
+        shell: bash
+        run: |
+          echo "::error  AUTH KEY为空，也许您需要将其填充到您的工作流的秘密中"
+          exit 1
+      - name: 下载飞网
+        shell: bash
+        id: download
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          URL="https://gmzta.oss-cn-beijing.aliyuncs.com/docker/feiwang-gmzta-${VERSION}.tar.gz"
+          curl "$URL" -o gmzta.tgz
+          tar -C /tmp -xzf gmzta.tgz
+          rm gmzta.tgz
+          TSPATH=/tmp/gmzta_${VERSION}
+          sudo mv "${TSPATH}/gmzta" "${TSPATH}/gmztad" /usr/bin
+      - name: 运行飞网
+        shell: bash
+        env:
+          GMZTA_AUTHKEY: ${{ inputs.authkey }}
+          ADDITIONAL_ARGS: ${{ inputs.args }}
+          HOSTNAME: ${{ inputs.hostname }}
+        run: |
+          sudo gmztad 2>~/gmztad.log &
+          if [ -z "${HOSTNAME}" ]; then
+            HOSTNAME="github-$(cat /etc/hostname)"
+          fi
+          sudo gmzta on --token ${GMZTA_AUTHKEY} --hostname=${HOSTNAME} ----subnet ${ADDITIONAL_ARGS}
