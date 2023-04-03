@@ -1,4 +1,4 @@
-name: '连接到飞网'
+name: 'ConnecttoGMZTA'
 description: '将Action工作流连接到飞网'
 inputs:
   authkey:
