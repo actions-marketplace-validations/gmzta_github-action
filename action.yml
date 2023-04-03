@@ -1,22 +1,19 @@
 name: '连接到飞网'
-description: '将你的GitHub Action工作流连接到飞网'
-branding:
-  icon: 'arrow-right-circle'
-  color: 'gray-dark'
+description: '将Action工作流连接到飞网'
 inputs:
   authkey:
-    description: '从管理面板获取您的飞网认证密钥。'
+    description: '从飞网控制面板获取的认证密钥。'
     required: true
   version:
-    description: '飞网版本使用。'
+    description: '飞网使用版本。'
     required: true
     default: '1.0.8'
   args:
-    description: '可选的附加参数 `gmzta on`'
+    description: '可选的附加参数,参考飞网官方网站。'
     required: false
     default: ''
   hostname:
-    description: '固定的主机名使用。'
+    description: '使用指定的主机名称。'
     required: false
     default: ''
 runs:
@@ -26,15 +23,15 @@ runs:
         if: ${{ runner.os != 'Linux' }}
         shell: bash
         run: |
-          echo "::error 仅支持Linux系统"
+          echo "::error 仅支持Linux系统。"
           exit 1
       - name: 检查AUTH密钥是否为空
         if: ${{ inputs.authkey == '' }}
         shell: bash
         run: |
-          echo "::error  AUTH KEY为空，也许您需要将其填充到您的工作流的秘密中"
+          echo "::error  AUTH KEY为空,您需要将其录入到工作流的secret中。"
           exit 1
-      - name: 下载飞网
+      - name: 下载飞网客户端
         shell: bash
         id: download
         env:
@@ -54,6 +51,6 @@ runs:
         run: |
           sudo gmztad 2>~/gmztad.log &
           if [ -z "${HOSTNAME}" ]; then
-            HOSTNAME="github-$(cat /etc/hostname)"
+            HOSTNAME="GmztaAction-$(cat /etc/hostname)"
           fi
           sudo gmzta on --token ${GMZTA_AUTHKEY} --hostname=${HOSTNAME} --subnet ${ADDITIONAL_ARGS}
