@@ -1,5 +1,8 @@
 name: 'ConnecttoGMZTA'
 description: '将Action工作流连接到飞网'
+branding:
+  icon: 'arrow-right-circle'
+  color: 'gray-dark'
 inputs:
   authkey:
     description: '从飞网控制面板获取的认证密钥。'
